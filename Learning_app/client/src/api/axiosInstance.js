@@ -1,22 +1,23 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL : "http://localhost:5000",
-    // headers: {
-    //     'Content-Type': 'application/json',
-    //   }
+  baseURL: "http://localhost:5000",
 });
 
-axiosInstance.interceptors.request.use((config) => {
+axiosInstance.interceptors.request.use(
+  (config) => {
     try {
-        const accessToken = JSON.parse(sessionStorage.getItem('accessToken')) || "";
+      const accessToken =
+        JSON.parse(sessionStorage.getItem("accessToken")) || "";
 
-    if(accessToken){
+      if (accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`;
-    }
+      }
     } catch (error) {
-        console.error("Error parsing accessToken:", error);
+      console.error("Error parsing accessToken:", error);
     }
     return config;
-},(err) => Promise.reject(err))
+  },
+  (err) => Promise.reject(err)
+);
 export default axiosInstance;
