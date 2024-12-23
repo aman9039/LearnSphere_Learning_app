@@ -6,16 +6,14 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    try {
-      const accessToken =
-        JSON.parse(sessionStorage.getItem("accessToken")) || "";
-
-      if (accessToken) {
-        config.headers.Authorization = `Bearer ${accessToken}`;
-      }
-    } catch (error) {
-      console.error("Error parsing accessToken:", error);
+    const accessToken = JSON.parse(sessionStorage.getItem("accessToken")) || "";
+   console.log(accessToken);
+   
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
+   console.log(config);
+
     return config;
   },
   (err) => Promise.reject(err)
