@@ -27,13 +27,14 @@ export default function AuthProvider({ children }) {
   async function handleLoginUser(event) {
     event.preventDefault();
     const data = await loginService(signInFormData);
-    console.log(data,"dadaaaaaa");
+    
+    console.log(data,"loginData");
 
     if(data.success){
       sessionStorage.setItem(
         "accessToken",
         JSON.stringify(data.data.accessToken)
-      )
+      );
       
       setAuth({
         authenticate : true,
@@ -53,7 +54,7 @@ export default function AuthProvider({ children }) {
   async function checkAuthUser() {
     try {
       const data = await checkAuthService();
-    console.log(data);
+    
     
     if (data.success) {
       setAuth({
@@ -81,9 +82,17 @@ export default function AuthProvider({ children }) {
     }
   }
 
+function resetCredentials(){
+  setAuth({
+    authenticate : false,
+    user : null
+  });
+};
+
   useEffect(() => {
     checkAuthUser();
   }, []);
+
 
 
 
@@ -97,6 +106,7 @@ export default function AuthProvider({ children }) {
         handleRegisterUser,
         handleLoginUser,
         auth,
+        resetCredentials,
       }}
     >
       {
