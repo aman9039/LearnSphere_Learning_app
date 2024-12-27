@@ -41,6 +41,8 @@ export default function AuthProvider({ children }) {
         user : data.data.user,
       });
     }else {
+      console.error('Login failed :', data.message || 'Unknown error');
+      
       setAuth({
         authenticate : false,
         user : null,
