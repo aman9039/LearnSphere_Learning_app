@@ -14,7 +14,7 @@ function FormControls({ formControls = [], formData, setFormData }) {
   function renderComponentByType(getControlItem) {
     let element = null;
     const currentControlItemValue = formData[getControlItem.name] || "";
-
+    
     switch (getControlItem.componentType) {
       case "input":
         element = (
@@ -49,12 +49,12 @@ function FormControls({ formControls = [], formData, setFormData }) {
               <SelectValue placeholder={getControlItem.label} />
             </SelectTrigger>
             <SelectContent>
-              {getControlItem.options && getControlItem.options.length > 0
+              {getControlItem.options && Array.isArray(getControlItem.options) && getControlItem.options.length > 0
                 ? getControlItem.options.map((optionItem) => (
                     <SelectItem key={optionItem.id} value={optionItem.id}>
-                      {optionItem.label}
+                      {optionItem.label}                   
                     </SelectItem>
-                  ))
+        ))
                 : null}
             </SelectContent>
           </Select>
@@ -98,7 +98,7 @@ function FormControls({ formControls = [], formData, setFormData }) {
     }
     return element;
   }
-
+   
   return (
     <div className="flex flex-col gap-3">
       {formControls.map((controleItem) => (
