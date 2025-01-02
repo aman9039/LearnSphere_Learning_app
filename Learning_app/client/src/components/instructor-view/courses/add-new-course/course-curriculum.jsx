@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { courseCurriculumInitialFormData } from "@/config";
 import { InstructorContext } from "@/context/instructor-context";
 import { useContext } from "react";
 
@@ -10,13 +11,23 @@ function CourseCurriculum() {
   const { courseCurriculumFormDate, setCourseCurriculumFormDate } =
     useContext(InstructorContext);
 
+    function handleNewLecture(){
+      setCourseCurriculumFormDate([
+        ...courseCurriculumFormDate,
+        {
+          ...courseCurriculumInitialFormData[0],
+        }
+      ])
+    };
+    
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Create Course Curriculum</CardTitle>
       </CardHeader>
       <CardContent>
-        <Button>Add Lecture</Button>
+        <Button onClick={handleNewLecture}>Add Lecture</Button>
         <div className="mt-4 space-y-4">
           {
           courseCurriculumFormDate.map((curriculumItem,index) => (
@@ -37,6 +48,9 @@ function CourseCurriculum() {
                   />
                   <Label htmlForm={`freePreview -${index + 1}`}>Free Preview</Label>
                 </div>
+              </div>
+              <div className="mt-6">
+                <Input type="file" accept="video/*" className="mb-4"/>
               </div>
             </div>
           ))
