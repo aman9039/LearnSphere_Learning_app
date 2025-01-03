@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const { authorization } = require('paypal-rest-sdk');
 const authRoutes = require("./routes/auth-routes/index");
+const mediaRoutes = require("./routes/instructor-routes/media-routes");
 const mongoose = require("mongoose");
 const app = express();
 
@@ -30,6 +31,7 @@ mongoose.connect(MONGODB_URI).then(() => console.log("MongoDB is connected")
 
 // routes configuration
 app.use("/auth",authRoutes);
+app.use("/media",mediaRoutes);
 
 app.use((err,req,res,next) => {
     console.log(err.stack);
